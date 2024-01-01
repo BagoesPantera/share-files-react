@@ -1,6 +1,6 @@
 import {ReactElement, useRef, useState} from "react";
 import {FileUploader} from "react-drag-drop-files";
-import {Form, useActionData} from "react-router-dom";
+import {Form, NavLink, useActionData} from "react-router-dom";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 export async function action({request}): Promise<void>{
@@ -53,19 +53,14 @@ export default function Home(): ReactElement {
                     </Form>
                     {
                         url ?
-                            <CopyToClipboard text={url as string} onCopy={() => setCopied(true)}>
-                                <span className={"user-select-all text-wrap"} role={"button"}>{url}</span>
-                            </CopyToClipboard>
+                            <div className="mt-4">
+                                <CopyToClipboard text={url as string} onCopy={() => setCopied(true)}>
+                                    <span className={"user-select-all text-wrap"} role={"button"}>{url}</span>
+                                </CopyToClipboard>
+                            </div>
                             :
                             null
                     }
-                    <div className="mt-4">
-                        <CopyToClipboard text={url as string} onCopy={() => setCopied(true)}>
-                            <p className={"user-select-all text-nowrap"} role={"button"}>https://s3-us-west-2.amazonaws.com/www.guilded.gg/WebhookPrimaryMedia/1e28488dbb935c069ab45de0fa97c376-Full.webp</p>
-                        </CopyToClipboard>
-                    </div>
-
-
                     {copied ? <p className={"text-success mt-2"}>Copied.</p> : null}
                 </div>
             </div>
