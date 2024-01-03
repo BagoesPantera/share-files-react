@@ -6,6 +6,7 @@ import MainLayout from "./layouts/main";
 // Pages
 import Home, {action as homeAction} from './pages/home'
 import About from "./pages/about";
+import List from "./pages/list";
 
 const router: Router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router: Router = createBrowserRouter([
             {
                 path: "about",
                 element: <About />
+            },
+            {
+                path: "list",
+                element: <List />
             }
         ]
     }

@@ -15,6 +15,7 @@ export default function Navbar(): ReactElement{
                     <div className="collapse navbar-collapse" id="navbarColor02">
                         <ul className="navbar-nav ms-auto">
                             <NavLink to={"/"} className={"nav-link"}>Home</NavLink>
+                            <NavLink to={"/list"} className={"nav-link"}>List</NavLink>
                             <NavLink to={"/about"} className={"nav-link"}>About</NavLink>
                         </ul>
                     </div>

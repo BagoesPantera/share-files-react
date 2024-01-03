@@ -7,7 +7,6 @@ export async function action({request}): any{
     try{
         const formData = await request.formData();
         formData.append('content', 'New file!') // guilded require this
-        console.log(formData.get("file[0"))
 
         if (formData.get("file[0]").name === ""){
             return {
@@ -20,7 +19,12 @@ export async function action({request}): any{
             body: formData
         })
         const respJson = await resp.json()
-        const url = respJson.content.document.nodes[1].data.src.split('?')[0]
+        const url : string = respJson.content.document.nodes[1].data.src.split('?')[0]
+
+        const temp : string[] = JSON.parse(localStorage.getItem("url-list"))
+        console.log(temp)
+        temp.push(url)
+        localStorage.setItem("url-list", JSON.stringify(temp))
 
         return {
             url
@@ -53,7 +57,6 @@ export default function Home(): ReactElement {
                                 <p className={"border border-light bg-danger text-white mt-4 border-opacity-50 p-2"}>{actionData?.error}</p>
                                 :
                                 null
-
                         }
                         <p className={"border border-primary mt-4 border-opacity-50 p-2"}>{file ? `File name: ${file.name}` : "no files selected yet"}</p>
                         <button type="submit" className="btn btn-light mt-2">Get url!</button>
@@ -61,8 +64,8 @@ export default function Home(): ReactElement {
                     {
                         actionData?.url ?
                             <div className="mt-4">
-                            <CopyToClipboard text={actionData?.url as string} onCopy={() => setCopied(true)}>
-                                    <span className={"user-select-all text-wrap"} role={"button"}>{url}</span>
+                                <CopyToClipboard text={actionData?.url as string} onCopy={() => setCopied(true)}>
+                                    <span className={"user-select-all text-wrap"} role={"button"}>{actionData?.url}</span>
                                 </CopyToClipboard>
                             </div>
                             :
