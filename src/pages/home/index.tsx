@@ -19,7 +19,9 @@ export async function action({request}): any{
             body: formData
         })
         const respJson = await resp.json()
-        const url : string = respJson.content.document.nodes[1].data.src.split('?')[0]
+        let url : any = respJson.content.document.nodes[1].data.src.split('?')[0]
+        url = url.split('WebhookPrimaryMedia')
+        url = `https://cdn.gilcdn.com/WebhookPrimaryMedia${url[1]}`
 
         const temp : string[] = JSON.parse(localStorage.getItem("url-list"))
         console.log(temp)
