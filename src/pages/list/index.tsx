@@ -8,7 +8,7 @@ export default function List(): ReactElement {
     return (
         <>
             <div className="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-                <div className="align-items-center justify-content-center w-50">
+                <div className="flex align-items-center justify-content-center w-50">
                     <table className="table table-active">
                         <thead className={"text-center"}>
                             <tr>

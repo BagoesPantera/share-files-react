@@ -3,6 +3,11 @@ import {FileUploader} from "react-drag-drop-files";
 import {Form, useActionData} from "react-router-dom";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+
+const MySwal = withReactContent(Swal)
+
 export async function action({request}): any{
     try{
         const formData = await request.formData();
@@ -13,6 +18,18 @@ export async function action({request}): any{
                 error: "File empty!"
             }
         }
+
+        MySwal.fire({
+            title: 'Loading...',
+            willOpen: () => {MySwal.showLoading()},
+            didClose: () => {MySwal.hideLoading()},
+            showCloseButton: false,
+            showCancelButton: false,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false
+          })
 
         const resp = await fetch(import.meta.env.VITE_WEBHOOK_URL,{
             method: "POST",
@@ -27,6 +44,8 @@ export async function action({request}): any{
         console.log(temp)
         temp.push(url)
         localStorage.setItem("url-list", JSON.stringify(temp))
+
+        MySwal.close()
 
         return {
             url
